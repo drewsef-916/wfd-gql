@@ -10,13 +10,13 @@
 
 <script>
 import navSearch from '../components/nav/navSearch.vue';
-import navCalendar from '../components/nav/navCalendar.vue';
+// import navCalendar from '../components/nav/navCalendar.vue';
 
 export default {
     props: ['recipeList'],
     components: {
         navSearch,
-        navCalendar
+        // navCalendar
     },
     data: function() {
         return {

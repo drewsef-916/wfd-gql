@@ -1,7 +1,9 @@
 <template>
     <main class="recipe-container">
         <div class="recipe" v-for="recipe in recipeList" v-bind:key="recipe.id">
-          <h1 @click="viewOneRecipe">{{recipe.name}}</h1>
+          <router-link :to="{path: '/recipe/'+recipe.id+''}">
+            <h1>{{recipe.name}}</h1>
+          </router-link>
           <ul class="ingredients">
             <h5>Ingredients</h5>
             <hr>
@@ -24,14 +26,6 @@
 /* eslint-disable */
 export default {
   props: ['recipeList'],
-  methods: {
-    viewOneRecipe: function() {
-      let singleRecipe = this.recipeList.filter(recipe => {
-        return recipe.name === event.target.innerHTML
-      })
-      this.recipeList = singleRecipe
-    }
-  }
 }
 </script>
 

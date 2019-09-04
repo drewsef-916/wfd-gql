@@ -56,7 +56,7 @@ export default {
     },
 
     methods: {
-        handleSubmit() {
+        async handleSubmit() {
             const name = this.$refs.recipeName.value;
             const angryEmoji = String.fromCodePoint(0x1F621);
             if (name === '') {
@@ -67,13 +67,13 @@ export default {
             try {
                 const res = await axios.post(`http://localhost:4000/graphql`, {
                 mutation: `
-                mutation createRecipe($id: String!, $name: String!, $ingredients: [String!], $directions: [String!]) {
+                mutation createRecipe($id: String!, $name: String!, $ingredients: [String!]!, $directions: [String!]!) {
                     createRecipe(id: $id, name: $name, ingredients: $ingredients, directions: $directions) {
                     name
                     }
                 }`,
                 variables: {
-                    id: this.$refs.singleRecipe.value,
+                    id: idify,
                     name: this.$refs.recipeName,
                     ingredients: this.ingredients,
                     directions: this.directions

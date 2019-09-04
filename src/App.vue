@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <headerNav :recipeList="this.recipes"/>
-    <recipes :recipeList="this.recipes"/>
+    <router-view :recipeList="this.recipes"></router-view>
+    <!-- <recipes :recipeList="this.recipes"/> -->
   </div>
 </template>
 
@@ -23,7 +24,6 @@ export default {
   data() {
     return {
       recipes: [],
-      recipe: {}
     }
   },
 
@@ -37,6 +37,7 @@ export default {
         const res = await axios.post(`http://localhost:4000/graphql`, {
           query: `{
             recipes {
+              id
               name
               ingredients
               directions
@@ -48,26 +49,6 @@ export default {
         this.recipes = ['An error occured']
       }
     },
-    async getRecipe() {
-      try {
-        const res = await axios.post(`http://localhost:4000/graphql`, {
-          query: `
-          query recipe($id: String!) {
-            recipe(id: $id) {
-              name
-              ingredients
-              directions
-            }
-          }`,
-          variables: {
-            id: this.$refs.singleRecipe.value
-          }
-        })
-        this.recipe = res.data.data.recipe
-      } catch(e) {
-        this.recipe = 'An error occured'
-      }
-    }
   }
 
 }
