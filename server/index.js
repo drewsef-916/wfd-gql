@@ -36,8 +36,18 @@ const getRecipes = async () => {
   return data
 }
 
-const createRecipe = async ({ ...recipeArgs }) => {
-  const { data } = await axios.post(`https://api.mlab.com/api/1/databases/wfddev/collections/recipes?apiKey=${process.env.MLAB_SECRET}`)
+const createRecipe = async (recipeArgs) => {
+  try {
+    const { res } = await axios({
+      method: 'POST',
+      url: `https://api.mlab.com/api/1/databases/wfddev/collections/recipes?apiKey=${process.env.MLAB_SECRET}`,
+      data: recipeArgs,
+      config: {"Content-Type": "application/json"}
+    })
+    console.log(res)
+  } catch(error) {
+    console.dir(error)
+  }
 }
 
 const deleteRecipe = async ({ id }) => {
@@ -70,3 +80,15 @@ app.use('/graphql', graphqlHTTP({
 app.listen(4000, () => console.log(`GQL server at localhost:4000/graphql`))
 
 
+// mutation createRecipe($id: String!, $name: String!, $ingredients: [String!]!, $directions: [String!]!) {
+//   createRecipe(id:$id, name: $name, ingredients: $ingredients, directions: $directions) {
+//     name
+//   }
+// }
+
+// {
+//   "id": "tacos",
+//   "name": "tacos",
+//   "ingredients": ["meat", "cheese", "tortillas"],
+//   "directions": ["cook meat", "put all the ingredients in a tortilla", "enjoy!"]
+// }
