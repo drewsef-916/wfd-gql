@@ -1,6 +1,5 @@
 <template>
   <div>
-    <fa icon="calendar-day" class="icon has-menu" @click="navMenu"/>
     <aside class="searchbox-calendar">
       <div class="dropdown-container">
         <p>Show me recipes I haven't had in:</p>
@@ -12,7 +11,6 @@
           <option value="Even longer!">Even longer!</option>
         </select>
       </div>
-      <fa icon="times-circle" class="icon close" @click="buttonClose"/>
     </aside>
   </div>
 </template>

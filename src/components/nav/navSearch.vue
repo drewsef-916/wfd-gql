@@ -1,18 +1,16 @@
 <template>
   <div>
-    <fa icon="search" class="icon has-menu" @click="navMenu"/>
-    <div class="search-menu menu-toggle">
-        <input type="text" placeholder="Find a recipe">
-    </div>
-    <aside class="searchbox">
+    <h1 @click="navMenu">Search</h1>
+    <aside class="searchbox" ref="searchBox">
       <input type="text" placeholder="find a recipe..." @keyup="findMatches">
-      <fa icon="times-circle" class="icon close" @click="buttonClose"/>
+      <h2 class="close" @click="buttonClose">X</h2>
       <ul class="recipe-matches"></ul>
     </aside>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   props: ['recipeList'],
   methods: {
@@ -21,7 +19,7 @@ export default {
       searchBox.style.display = "grid";
     },
     buttonClose: function() {
-      this.$el.lastChild.style.display = "none";
+      this.$refs.searchBox.style.display = "none";
     },
     findMatches: function() {
       let matchWord = this.$el.lastChild.firstChild.value;
@@ -76,7 +74,7 @@ export default {
     overflow: hidden;
   }
   .searchbox .close {
-    width: 50%;
+    font-size: 2rem;
     margin: 0 auto;
     color: slategrey;
   }
