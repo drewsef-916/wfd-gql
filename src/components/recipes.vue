@@ -1,10 +1,7 @@
 <template>
-  <div class="page-wrapper">
     <main class="recipe-container">
         <div class="recipe" v-for="recipe in recipeList" v-bind:key="recipe.id">
-          <nuxt-link :to="{name: 'recipes-id', params: {id: recipe.id}}">
-            <h3>{{recipe.name}}</h3>
-          </nuxt-link>
+          <h1 @click="viewOneRecipe">{{recipe.name}}</h1>
           <ul class="ingredients">
             <h5>Ingredients</h5>
             <hr>
@@ -21,12 +18,38 @@
           </ul>
         </div>
     </main>
-  </div>
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   props: ['recipeList'],
+  methods: {
+    viewOneRecipe: function() {
+      let singleRecipe = this.recipeList.filter(recipe => {
+        return recipe.name === event.target.innerHTML
+      })
+      this.recipeList = singleRecipe
+    }
+  }
 }
 </script>
+
+<style scoped>
+  ul {
+    padding: 0 1rem;
+  }
+  .recipe-container {
+    margin-top: 17vh;
+  }
+  .recipe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid darkgray;
+    border-radius: 10px;
+    margin: 2rem;
+  }
+</style>
 

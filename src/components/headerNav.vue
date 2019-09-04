@@ -1,35 +1,26 @@
 <template>
     <div class="header-container">
         <navSearch :recipeList="this.recipes"/>
-        <router-link to="/about">
-            <navAbout :recipeList="this.recipes"/>
-        </router-link>
         <router-link to="/">
-            <img class="logo" src="~/assets/wfd-logo.png"/>
+            <img class="logo" src="../assets/wfd-logo.png"/>
         </router-link>
-        <navCalendar :recipeList="this.recipes"/>
-        <div>
-            <router-link to="/newRecipe">
-                <fa icon="plus" class="icon"/>
-            </router-link>
-        </div>
+        <h1>Converter</h1>
     </div>
 </template>
 
 <script>
-import navAbout from '~/components/nav/navAbout.vue';
-import navSearch from '~/components/nav/navSearch.vue';
-import navCalendar from '~/components/nav/navCalendar.vue';
+import navSearch from '../components/nav/navSearch.vue';
+import navCalendar from '../components/nav/navCalendar.vue';
 
 export default {
+    props: ['recipeList'],
     components: {
-        navAbout,
         navSearch,
         navCalendar
     },
     data: function() {
         return {
-            recipes: [],
+            recipes: this.$props.recipeList,
         }
     },
 }
@@ -38,7 +29,7 @@ export default {
 <style scoped>
     .header-container {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         justify-items: center;
         align-items: center;
         height: 15vh;
