@@ -19,18 +19,21 @@
           </ul>
         </div>
     </main>
-    <div v-for="recipe in recipeList" v-bind:key="recipe.id">
-      <h5>{{recipe.name}}</h5>
-    </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data: function() {
-    recipe: {}
+    return {
+      recipe: {}
+    }
   },
   created: async function() {
+    const recipeId = this.$route.path.split('/')[2]
+    console.log(recipeId)
     try {
       const res = await axios.post(`http://localhost:4000/graphql`, {
         query: `
@@ -43,9 +46,10 @@ export default {
           }
         }`,
         variables: {
-          id: this.$route.split('/')[1]
+          id: recipeId
         }
       })
+      console.log(res)
       this.recipe = res.data.data.recipe
     } catch(e) {
       this.recipe = 'An error occured'
