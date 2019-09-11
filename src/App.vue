@@ -1,13 +1,12 @@
 <template>
   <div id="app">
-    <headerNav :recipeList="this.recipes"/>
-    <router-view :recipeList="this.recipes"></router-view>
+    <headerNav/>
+    <router-view></router-view>
     <!-- <recipes :recipeList="this.recipes"/> -->
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import recipes from './components/recipes'
 import recipe from './components/recipe'
 import headerNav from './components/headerNav'
@@ -20,36 +19,6 @@ export default {
     recipes,
     recipe,
   },
-
-  data() {
-    return {
-      recipes: [],
-    }
-  },
-
-  async created() {
-    this.getRecipes()
-  },
-
-  methods: {
-    async getRecipes() {
-      try {
-        const res = await axios.post(`http://localhost:4000/graphql`, {
-          query: `{
-            recipes {
-              id
-              name
-              ingredients
-              directions
-            }
-          }`
-        })
-        this.recipes = res.data.data.recipes
-      } catch (e) {
-        this.recipes = ['An error occured']
-      }
-    },
-  }
 
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <main class="recipe-container">
-        <div class="recipe" v-for="recipe in recipeList" v-bind:key="recipe.id">
+        <div class="recipe" v-for="recipe in recipes" v-bind:key="recipe.id">
           <router-link :to="{path: '/recipe/'+recipe.id+''}">
             <h1>{{recipe.name}}</h1>
           </router-link>
@@ -25,7 +25,16 @@
 <script>
 /* eslint-disable */
 export default {
-  props: ['recipeList'],
+  computed: {
+    recipes() {
+      return this.$store.getters.recipes
+    }
+  },
+
+  created() {
+    this.$store.dispatch('fetchRecipes')
+  },
+
 }
 </script>
 

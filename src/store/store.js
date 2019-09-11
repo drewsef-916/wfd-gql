@@ -9,8 +9,8 @@ export default new Vuex.store({
     recipes: [],
   },
   getters: {
-    recipes() {
-      return this.$store.getters.score
+    recipes(state, getters) {
+      return state.recipes
     }
   },
   mutations: {
@@ -19,7 +19,7 @@ export default new Vuex.store({
     }
   },
   actions: {
-    fetchRecipes({ commit }) { //this is context.commmit
+    async fetchRecipes({ commit }) { //this is context.commmit
       const res = await axios.post(`${process.env.PORT}/graphql`, {
           query: `{
             recipes {
