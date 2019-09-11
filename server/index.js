@@ -77,18 +77,6 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true,
 }));
 
+let port = process.env.PORT;
+if (port == null || port == "") port = 4000;
 app.listen(4000, () => console.log(`GQL server at localhost:4000/graphql`))
-
-
-// mutation createRecipe($id: String!, $name: String!, $ingredients: [String!]!, $directions: [String!]!) {
-//   createRecipe(id:$id, name: $name, ingredients: $ingredients, directions: $directions) {
-//     name
-//   }
-// }
-
-// {
-//   "id": "tacos",
-//   "name": "tacos",
-//   "ingredients": ["meat", "cheese", "tortillas"],
-//   "directions": ["cook meat", "put all the ingredients in a tortilla", "enjoy!"]
-// }
